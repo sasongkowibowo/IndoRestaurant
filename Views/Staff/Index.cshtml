@@ -1,0 +1,43 @@
+﻿@model IndoRestaurant.Models.Employee
+
+@{
+    ViewBag.Title = "Staff Only";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="alert alert-success" role="alert">
+        <h1>@ViewBag.Branch</h1> <br />
+        Your name: @Html.DisplayFor(model => model.FullName)<br />
+        Your phone number: @Html.DisplayFor(model => model.Telephone)<br />
+    </div>
+</div>
+<div class="row">
+    @if (User.IsInRole("Administrator"))
+    {
+        <button class="btn-lg btn-primary" onclick="window.location.href='/Account/Register'">Register New User</button>
+        <button class="btn-lg btn-primary" onclick="window.location.href='/Employee/Index'">User List</button>
+        <button class="btn-lg btn-primary" onclick="window.location.href='/Branches/Index'">Manage Branches</button>
+        <button class="btn-lg btn-primary" onclick="window.location.href='/Menus/Index'">Manage Menu</button>
+        <button class="btn-lg btn-primary" onclick="window.location.href='/Campaigns/Index'">Create Campaign</button>
+    }
+    else if (User.IsInRole("Manager"))
+    {
+        <button class="btn-lg btn-primary" onclick="window.location.href='/Reviews/Index'">View Reviews</button>
+        <button class="btn-lg btn-primary" onclick="window.location.href='/ManageBooking/Index'">Manage Booking</button>
+        <button class="btn-lg btn-primary" onclick="window.location.href='/BranchTables/Index'">Manage Table</button>
+    }
+    else if (User.IsInRole("Staff"))
+    {
+        <button class="btn-lg btn-primary" onclick="window.location.href='/ManageBooking/Index'">Manage Booking</button>
+        <button class="btn-lg btn-primary" onclick="window.location.href='/BranchTables/Index'">Manage Table</button>
+    }
+    else
+    {
+        <p>You dont have any role yet.</p>
+    }
+</div>
+<br />
+

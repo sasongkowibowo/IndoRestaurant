@@ -1,0 +1,45 @@
+﻿@model IEnumerable<IndoRestaurant.Models.BookingRequest>
+
+@{
+    ViewBag.Title = "Manage Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title <a href="~/Staff/Index" style="font-size:18px !important"><span class="glyphicon glyphicon-chevron-left"></span> Back</a></h2>
+<hr />
+@Html.ActionLink("New Booking Request", "Index") | @Html.ActionLink("Scheduled", "ScheduledBookings")  | @Html.ActionLink("Cancelled", "CancelledBookings") | Finished
+<table class="table">
+    <tr>
+        <th width="25%">
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th width="25%">
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th width="25%">
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th width="25%">
+            @Html.DisplayNameFor(model => model.Persons)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RealTimeStart) - @Html.DisplayFor(modelItem => item.RealTimeEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Persons)
+            </td>
+        </tr>
+    }
+
+</table>

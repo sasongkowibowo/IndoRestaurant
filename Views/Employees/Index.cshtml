@@ -1,0 +1,42 @@
+﻿@model IEnumerable<IndoRestaurant.Models.Employee>
+
+@{
+    ViewBag.Title = "Employees Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="container">
+    <div class="row"> 
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telephone)
+                </th>
+                <th>
+                    Branch
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telephone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Branch.Name)
+                    </td>
+                </tr>
+            }
+        </table>
+       
+    </div>
+</div>

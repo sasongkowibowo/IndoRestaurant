@@ -1,0 +1,107 @@
+﻿@model IndoRestaurant.Models.Review
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Branch
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Branch.Name)
+        </dd>
+
+        <dt>
+            Booking Info
+        </dt>
+
+        <dd>
+            Name : @Html.DisplayFor(model => model.BookingRequest.FullName)<br />
+            Email : @Html.DisplayFor(model => model.BookingRequest.Email)<br />
+            Telephone : @Html.DisplayFor(model => model.BookingRequest.Telephone)<br />
+            Date : @Html.DisplayFor(model => model.BookingRequest.Date)<br />
+            Time : @Html.DisplayFor(model => model.BookingRequest.RealTimeStart) - @Html.DisplayFor(model => model.BookingRequest.RealTimeEnd) <br />
+            Persons : @Html.DisplayFor(model => model.BookingRequest.Persons)<br />
+        </dd>
+
+        <dt>
+            Review
+        </dt>
+
+        <dd>
+       </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Menu)
+        </dt>
+
+        <dd>
+            @Html.HiddenFor(model => model.Menu, new { htmlAttributes = new { @class = "form-control" } })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Place)
+        </dt>
+
+        <dd>
+            @Html.HiddenFor(model => model.Place, new { htmlAttributes = new { @class = "form-control" } })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service)
+        </dt>
+
+        <dd>
+            @Html.HiddenFor(model => model.Service, new { htmlAttributes = new { @class = "form-control" } })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BookingProcess)
+        </dt>
+
+        <dd>
+            @Html.HiddenFor(model => model.BookingProcess, new { htmlAttributes = new { @class = "form-control" } })
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReviewDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReviewDate)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+@section Scripts {
+    <script src="~/Scripts/bootstrap-rating/bootstrap-rating.min.js"></script>
+    <script>
+            $(document).ready(function () {
+                $('#Menu').rating({displayOnly: true});
+                $('#Place').rating({displayOnly: true});
+                $('#Service').rating({displayOnly: true});
+                $('#BookingProcess').rating({displayOnly: true});
+            });
+    </script>
+}

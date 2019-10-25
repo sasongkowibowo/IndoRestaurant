@@ -1,0 +1,249 @@
+﻿@model IndoRestaurant.Models.BookingRequest
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" id="about">
+    <div class="jumbotron jumbo-about text-center" id="About" style="color:#ffffff">
+        <h2>
+            About Us <br /><br />
+
+            <img src="~/Content/images/logo_background.png" width="150px" height="150px" />
+        </h2>
+
+        <p>
+            Established in 1995, Indonesian Original Recipes is a representation <br />
+            of delicious, hygienic and nutritious Indonesian cuisine. <br />
+            It is all about Indonesia and its specialties. <br />
+            Traditional menus with authentic spices and comfortable places <br />
+            make us an ideal culinary restaurant for various events<br />
+            such as: social gathering, meeting, birthdays, etc. <br />
+        </p>
+    </div>
+</div>
+<div class="row" id="menu">
+    <div class="jumbotron jumbo-menu">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 menu-carousel">
+                <div style="max-height:400px"><img src="~/Content/images/menu1.jpg" class="img-responsive" width="100%" /></div>
+                <div style="max-height:400px"><img src="~/Content/images/menu2.jpeg" class="img-responsive" width="100%" /></div>
+                <div style="max-height:400px"><img src="~/Content/images/menu9.jpg" class="img-responsive" width="100%" /></div>
+            </div>
+        </div>
+        <div class="row">
+            <h2>
+                Our Menu
+            </h2>
+            <p>
+                Indonesian cuisine is one of the richest culinary traditions in the world and is full of strong flavors. The richness of its cuisine is a reflection of the diversity of Nusantara's culture and traditions, which consists of around 6,000 inhabited islands and occupies an important role in Indonesia's national culture in general. Almost all Indonesian dishes are rich in spices derived from spices such as hazelnut, chilli, galangal, ginger, kencur, turmeric, coconut and palm sugar. We present a variety of authentic Indonesian menus from various ethnic groups in Indonesia, with the touch of our experienced chefs, guaranteed to spoil your taste.
+            </p>
+            @foreach (var menus in ViewBag.Menus)
+            {
+                <div class="col-lg-6">
+                    <h3>@menus.Name</h3>
+                    <p>
+                        @menus.Description<br />
+                        Calories: @menus.Calories<br />
+                        <img src="@menus.ImagePath" width="400px" height="250px" />
+                        <br /><br />
+                    </p>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<div class="row" id="booking">
+    <div class="jumbotron jumbo-booking">
+        <div class="row">
+            <h2>
+                Book a Table Now
+            </h2>
+            Currently, we have ten branches across Melbourne that open everyday 9 am - 10 pm. All of them have the same high-quality standard menus, with excellent services from our friendly staff. Book a table in a branch near your place and feel the great experiences of Indonesian culinary.
+            <hr />
+            <div class="col-lg-5">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BranchId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @*@Html.DropDownList("BranchId", null, htmlAttributes: new { @class = "form-control", tabindex = 1 })*@
+                                <select name="BranchId" id="BranchId" class="form-control" tabindex="1">
+                                    <option value="">- Please select a branch -</option>
+                                    @foreach (var branches in ViewBag.Branches)
+                                    {
+                                        <option value="@branches.Id">@branches.Name</option>
+                                    }
+                                </select>
+                                @Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Please input your full name", tabindex = 1 } })
+                                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @placeholder = "Select Date", tabindex = 1 } })
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @*@Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control" } })*@
+                                <select class="form-control" name="Time" id="Time" tabindex=1>
+                                    <option value="" placeholder>Select Time</option>
+                                    <option value="900">09:00</option>
+                                    <option value="930">09:30</option>
+                                    <option value="1000">10:00</option>
+                                    <option value="1030">10:30</option>
+                                    <option value="1100">11:00</option>
+                                    <option value="1130">11:30</option>
+                                    <option value="1200">12:00</option>
+                                    <option value="1230">12:30</option>
+                                    <option value="1300">13:00</option>
+                                    <option value="1330">13:30</option>
+                                    <option value="1400">14:00</option>
+                                    <option value="1430">14:30</option>
+                                    <option value="1500">15:00</option>
+                                    <option value="1530">15:30</option>
+                                    <option value="1530">15:30</option>
+                                    <option value="1530">15:30</option>
+                                    <option value="1530">15:30</option>
+                                    <option value="1600">16:00</option>
+                                    <option value="1630">16:30</option>
+                                    <option value="1700">17:00</option>
+                                    <option value="1730">17:30</option>
+                                    <option value="1800">18:00</option>
+                                    <option value="1830">18:30</option>
+                                    <option value="1900">19:00</option>
+                                    <option value="1930">19:30</option>
+                                    <option value="2000">20:00</option>
+                                </select>
+                                @Html.ValidationMessageFor(model => model.Time, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Persons, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Persons, new { htmlAttributes = new { @class = "form-control", @placeholder = "How many persons will come?", tabindex = 1 } })
+                                @Html.ValidationMessageFor(model => model.Persons, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Please input your valid email address", tabindex = 1 } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Telephone, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Please input your valid telephone number", tabindex = 1 } })
+                                @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextAreaFor(model => model.Note, new { rows = 5, cols = 40, placeholder = "Do you have anything to say to our staff?", htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                                <input type="submit" value="Book Now" class="btn btn-primary" title="Clik here to submit your booking request" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-lg-7">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script async defer src=""></script>
+
+    <script>
+        function markerClicked(branchId)
+        {
+            document.getElementById('BranchId').value = branchId;
+        }
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {zoom: 11, center: { lat: -37.8148089, lng: 144.9633757 }});
+
+            var marker;
+            var markers = [];
+            var infowindow;
+            var infowindows = [];
+            var i = 0;
+            @foreach (var branches in ViewBag.Branches)
+            {
+            <text>
+            marker = new google.maps.Marker({ position: { lat: @branches.Lat , lng: @branches.Lng }, title: "@branches.Name", map: map });
+            markers.push(marker);
+
+            infowindow = new google.maps.InfoWindow({
+                content: "<span><b>@branches.Name</b><br />@branches.Address<br />@branches.Telephone<br /><button class=\"btn-xs btn-primary\" onclick=\"markerClicked(@branches.Id)\">Select</button></span>"
+            });
+            infowindows.push(infowindow);
+            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function() {
+                    infowindows[i].open(map,marker);
+                }
+                })(marker, i));
+            i++;
+            </text>
+            }
+        }
+
+        $(document).ready(function () {
+            $('.menu-carousel').slick({
+                autoplay: true,
+                autoplaySpeed: 2000,
+                dots: true,
+                infinite: true,
+                speed: 400,
+                adaptiveHeight: false
+            });
+
+
+            var date_input = $('input[name="Date"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            var options = {
+                format: 'yyyy/mm/dd',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            };
+            date_input.datepicker(options).datepicker();
+        });
+    </script>
+}

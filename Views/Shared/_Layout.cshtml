@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indonesian Original Recipes</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic&display=swap" rel="stylesheet">
+    <link href="~/Content/Slick/slick.css" rel="stylesheet" />
+    <link href="~/Content/Slick/slick-theme.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/summernote/summernote.css" rel="stylesheet" />
+    <link href="~/Scripts/jqPlot/jquery.jqplot.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="navbar navbar-custom navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-custom navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Indonesian Original Recipes", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse navbar-right">
+                <ul class="nav navbar-nav">
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <li><a href=#about title="Go to about us section">About Us</a></li>
+                        <li><a href=#menu title="Go to menu section">Menu</a></li>
+                        <li><a href=#booking title="Go to booking section">Booking</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <footer class="modal-footer">
+            <p>&copy; @DateTime.Now.Year - Indonesian Original Recipes</p>
+            @Html.Partial("_StaffLoginPartial")
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <!--carousel-->
+    <script src="~/Scripts/Slick/slick.min.js" defer></script>
+    <!--datepicker-->
+    <script src="~/Scripts/bootstrap-datepicker.min.js" defer></script>
+    <!--notify.js-->
+    <script src="~/Scripts/notify.min.js" defer></script>
+    @if (ViewBag.Message != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $.notify("@ViewBag.Message[0]","@ViewBag.Message[1]");
+            });
+        </script>
+    }
+
+</body>
+</html>

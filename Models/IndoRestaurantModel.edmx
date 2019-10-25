@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IndoRestaurantModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="IndoRestaurantModelStoreContainer">
+    <EntitySet Name="Campaigns" EntityType="IndoRestaurantModel.Store.Campaigns" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BookingRequests" EntityType="IndoRestaurantModel.Store.BookingRequests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BranchTables" EntityType="IndoRestaurantModel.Store.BranchTables" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Branches" EntityType="IndoRestaurantModel.Store.Branches" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Employees" EntityType="IndoRestaurantModel.Store.Employees" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reviews" EntityType="IndoRestaurantModel.Store.Reviews" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Menus" EntityType="IndoRestaurantModel.Store.Menus" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="BranchEmployee" Association="IndoRestaurantModel.Store.BranchEmployee">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="BranchBranchTable" Association="IndoRestaurantModel.Store.BranchBranchTable">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="BranchTable" EntitySet="BranchTables" />
+    </AssociationSet>
+    <AssociationSet Name="BranchBookingRequest" Association="IndoRestaurantModel.Store.BranchBookingRequest">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="BookingRequest" EntitySet="BookingRequests" />
+    </AssociationSet>
+    <AssociationSet Name="BranchReview" Association="IndoRestaurantModel.Store.BranchReview">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="BookingRequestReview" Association="IndoRestaurantModel.Store.BookingRequestReview">
+      <End Role="BookingRequest" EntitySet="BookingRequests" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Campaigns">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SendTo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SendDate" Type="datetime" Nullable="false" />
+    <Property Name="AttachmentPath" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BookingRequests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Time" Type="int" Nullable="false" />
+    <Property Name="Persons" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Note" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+    <Property Name="BookingStatus" Type="int" Nullable="true" />
+    <Property Name="ReviewCode" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="RealTimeStart" Type="int" Nullable="true" />
+    <Property Name="RealTimeEnd" Type="int" Nullable="true" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+    <Property Name="BranchTableId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="BranchTables">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableNo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Capacity" Type="int" Nullable="false" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Branches">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lat" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lng" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LoginId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reviews">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Menu" Type="int" Nullable="false" />
+    <Property Name="Place" Type="int" Nullable="false" />
+    <Property Name="Service" Type="int" Nullable="false" />
+    <Property Name="BookingProcess" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ReviewDate" Type="datetime" Nullable="false" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+    <Property Name="BookingRequestId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Menus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Calories" Type="int" Nullable="false" />
+    <Property Name="ImagePath" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <Association Name="BranchEmployee">
+    <End Role="Branch" Type="IndoRestaurantModel.Store.Branches" Multiplicity="1" />
+    <End Role="Employee" Type="IndoRestaurantModel.Store.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BranchBranchTable">
+    <End Role="Branch" Type="IndoRestaurantModel.Store.Branches" Multiplicity="1" />
+    <End Role="BranchTable" Type="IndoRestaurantModel.Store.BranchTables" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BranchTable">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BranchBookingRequest">
+    <End Role="Branch" Type="IndoRestaurantModel.Store.Branches" Multiplicity="1" />
+    <End Role="BookingRequest" Type="IndoRestaurantModel.Store.BookingRequests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookingRequest">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BranchReview">
+    <End Role="Branch" Type="IndoRestaurantModel.Store.Branches" Multiplicity="1" />
+    <End Role="Review" Type="IndoRestaurantModel.Store.Reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookingRequestReview">
+    <End Role="BookingRequest" Type="IndoRestaurantModel.Store.BookingRequests" Multiplicity="1" />
+    <End Role="Review" Type="IndoRestaurantModel.Store.Reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookingRequest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="BookingRequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="IndoRestaurantModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="IndoRestaurantModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Campaigns" EntityType="IndoRestaurantModel.Campaign" />
+          <EntitySet Name="BookingRequests" EntityType="IndoRestaurantModel.BookingRequest" />
+          <EntitySet Name="BranchTables" EntityType="IndoRestaurantModel.BranchTable" />
+          <EntitySet Name="Branches" EntityType="IndoRestaurantModel.Branch" />
+          <EntitySet Name="Employees" EntityType="IndoRestaurantModel.Employee" />
+          <EntitySet Name="Reviews" EntityType="IndoRestaurantModel.Review" />
+          <EntitySet Name="Menus" EntityType="IndoRestaurantModel.Menu" />
+          <AssociationSet Name="BranchEmployee" Association="IndoRestaurantModel.BranchEmployee">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="BranchBranchTable" Association="IndoRestaurantModel.BranchBranchTable">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="BranchTable" EntitySet="BranchTables" />
+          </AssociationSet>
+          <AssociationSet Name="BranchBookingRequest" Association="IndoRestaurantModel.BranchBookingRequest">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="BookingRequest" EntitySet="BookingRequests" />
+          </AssociationSet>
+          <AssociationSet Name="BranchReview" Association="IndoRestaurantModel.BranchReview">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="BookingRequestReview" Association="IndoRestaurantModel.BookingRequestReview">
+            <End Role="BookingRequest" EntitySet="BookingRequests" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Campaign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SendTo" Type="String" Nullable="false" />
+          <Property Name="Subject" Type="String" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="SendDate" Type="DateTime" Nullable="false" />
+          <Property Name="AttachmentPath" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookingRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Time" Type="Int32" Nullable="false" />
+          <Property Name="Persons" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Telephone" Type="String" Nullable="false" />
+          <Property Name="Note" Type="String" Nullable="true" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" />
+          <Property Name="BookingStatus" Type="Int32" Nullable="true" />
+          <Property Name="ReviewCode" Type="String" Nullable="true" />
+          <Property Name="RealTimeStart" Type="Int32" Nullable="true" />
+          <Property Name="RealTimeEnd" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Branch" Relationship="IndoRestaurantModel.BranchBookingRequest" FromRole="BookingRequest" ToRole="Branch" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Reviews" Relationship="IndoRestaurantModel.BookingRequestReview" FromRole="BookingRequest" ToRole="Review" />
+          <Property Name="BranchTableId" Type="Int32" Nullable="true" />
+        </EntityType>
+        <EntityType Name="BranchTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableNo" Type="String" Nullable="false" />
+          <Property Name="Capacity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Branch" Relationship="IndoRestaurantModel.BranchBranchTable" FromRole="BranchTable" ToRole="Branch" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <Property Name="Telephone" Type="String" Nullable="false" />
+          <Property Name="Lat" Type="String" Nullable="false" />
+          <Property Name="Lng" Type="String" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="IndoRestaurantModel.BranchEmployee" FromRole="Branch" ToRole="Employee" />
+          <NavigationProperty Name="BranchTables" Relationship="IndoRestaurantModel.BranchBranchTable" FromRole="Branch" ToRole="BranchTable" />
+          <NavigationProperty Name="BookingRequests" Relationship="IndoRestaurantModel.BranchBookingRequest" FromRole="Branch" ToRole="BookingRequest" />
+          <NavigationProperty Name="Reviews" Relationship="IndoRestaurantModel.BranchReview" FromRole="Branch" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" />
+          <Property Name="Telephone" Type="String" Nullable="false" />
+          <Property Name="LoginId" Type="String" Nullable="false" />
+          <NavigationProperty Name="Branch" Relationship="IndoRestaurantModel.BranchEmployee" FromRole="Employee" ToRole="Branch" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Menu" Type="Int32" Nullable="false" />
+          <Property Name="Place" Type="Int32" Nullable="false" />
+          <Property Name="Service" Type="Int32" Nullable="false" />
+          <Property Name="BookingProcess" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" />
+          <Property Name="ReviewDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Branch" Relationship="IndoRestaurantModel.BranchReview" FromRole="Review" ToRole="Branch" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BookingRequest" Relationship="IndoRestaurantModel.BookingRequestReview" FromRole="Review" ToRole="BookingRequest" />
+          <Property Name="BookingRequestId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Calories" Type="Int32" Nullable="false" />
+          <Property Name="ImagePath" Type="String" Nullable="true" />
+        </EntityType>
+        <Association Name="BranchEmployee">
+          <End Type="IndoRestaurantModel.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="IndoRestaurantModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BranchBranchTable">
+          <End Type="IndoRestaurantModel.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="IndoRestaurantModel.BranchTable" Role="BranchTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BranchTable">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BranchBookingRequest">
+          <End Type="IndoRestaurantModel.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="IndoRestaurantModel.BookingRequest" Role="BookingRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingRequest">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BranchReview">
+          <End Type="IndoRestaurantModel.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="IndoRestaurantModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookingRequestReview">
+          <End Type="IndoRestaurantModel.BookingRequest" Role="BookingRequest" Multiplicity="1" />
+          <End Type="IndoRestaurantModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingRequest">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="BookingRequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="IndoRestaurantModelStoreContainer" CdmEntityContainer="IndoRestaurantModelContainer">
+    <EntitySetMapping Name="Campaigns">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoRestaurantModel.Campaign)">
+        <MappingFragment StoreEntitySet="Campaigns">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SendTo" ColumnName="SendTo" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+          <ScalarProperty Name="AttachmentPath" ColumnName="AttachmentPath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookingRequests">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoRestaurantModel.BookingRequest)">
+        <MappingFragment StoreEntitySet="BookingRequests">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Persons" ColumnName="Persons" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="BookingStatus" ColumnName="BookingStatus" />
+          <ScalarProperty Name="ReviewCode" ColumnName="ReviewCode" />
+          <ScalarProperty Name="RealTimeStart" ColumnName="RealTimeStart" />
+          <ScalarProperty Name="RealTimeEnd" ColumnName="RealTimeEnd" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="BranchTableId" ColumnName="BranchTableId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BranchTables">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoRestaurantModel.BranchTable)">
+        <MappingFragment StoreEntitySet="BranchTables">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TableNo" ColumnName="TableNo" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Branches">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoRestaurantModel.Branch)">
+        <MappingFragment StoreEntitySet="Branches">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoRestaurantModel.Employee)">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reviews">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoRestaurantModel.Review)">
+        <MappingFragment StoreEntitySet="Reviews">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Menu" ColumnName="Menu" />
+          <ScalarProperty Name="Place" ColumnName="Place" />
+          <ScalarProperty Name="Service" ColumnName="Service" />
+          <ScalarProperty Name="BookingProcess" ColumnName="BookingProcess" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="BookingRequestId" ColumnName="BookingRequestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoRestaurantModel.Menu)">
+        <MappingFragment StoreEntitySet="Menus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Calories" ColumnName="Calories" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

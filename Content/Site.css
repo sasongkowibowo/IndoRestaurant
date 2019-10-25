@@ -1,0 +1,104 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* change the background color */
+.navbar-custom {
+    background-color: #210303;
+}
+
+    /* change the brand and text color */
+    .navbar-custom .navbar-brand,
+    .navbar-custom .navbar-text {
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    .navbar-custom .navbar-toggle {
+        border-color: #333;
+    }
+
+        .navbar-custom .navbar-toggle:hover,
+        .navbar-custom .navbar-toggle:focus {
+            background-color: #333;
+        }
+
+        .navbar-custom .navbar-toggle .icon-bar {
+            background-color: #fff;
+        }
+
+ul.nav a:hover {
+    color: #ffffff !important;
+    background-color: #c21515 !important;
+}
+
+ul.nav a {
+    color: #f25e5e !important;
+}
+
+#logo {
+    vertical-align: middle;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+body {
+    font-family: 'Gentium Book Basic', serif !important;
+    font-size: 20px;
+}
+
+.jumbo-about {
+    background-image: url('images/jumbo_bg.jpeg');
+    background-size: cover;
+    text-shadow: 2px 2px 5px #353333;
+}
+
+.jumbo-menu {
+    background-color: #e0fcbf;
+    color: #210303;
+}
+
+.jumbo-booking {
+    background-color: #f1dea9;
+    color: #210303;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 55px;
+    background-color: #210303;
+}
+
+.modal-footer {
+    text-align: left !important;
+}
+
+#map {
+    height: 400px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+}

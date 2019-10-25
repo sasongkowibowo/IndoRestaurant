@@ -1,0 +1,107 @@
+﻿@model IEnumerable<IndoRestaurant.Models.Review>
+
+@{
+    ViewBag.Title = "Reviews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title <a href="~/Staff/Index" style="font-size:18px !important"><span class="glyphicon glyphicon-chevron-left"></span> Back</a></h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div id="chartdiv"></div>
+    </div>
+</div>
+<br />
+<br />
+<div class="row">
+    <table class="table">
+        <tr>
+            <th width="20%">
+                Branch
+            </th>
+            <th width="20%">
+                Booking Info
+            </th>
+            <th width="20%">
+                Rating
+            </th>
+            <th width="25%">
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th width="10%">
+                Review Date
+            </th>
+            <th width="5%">
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Branch.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingRequest.FullName) <br />
+                    @Html.DisplayFor(modelItem => item.BookingRequest.Date)
+                </td>
+                <td>
+                    Menu : @Html.DisplayFor(modelItem => item.Menu) <br />
+                    Place : @Html.DisplayFor(modelItem => item.Place) <br />
+                    Service : @Html.DisplayFor(modelItem => item.Service) <br />
+                    Booking Process : @Html.DisplayFor(modelItem => item.BookingProcess) <br />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@section Scripts {
+    <!--[if lt IE 9]><script src="~/Scripts/jqPlot/excanvas.min.js"></script><![endif]-->
+    <script src="~/Scripts/jqPlot/jquery.jqplot.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.barRenderer.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script src="~/Scripts/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.jqplot.config.enablePlugins = true;
+            var s1 = [@ViewBag.AvgMenu, @ViewBag.AvgPlace, @ViewBag.AvgService, @ViewBag.AvgBookingProcess];
+            var ticks = ['Menu', 'Place', 'Service', 'Booking Processs'];
+
+            plot1 = $.jqplot('chartdiv', [s1], {
+                // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
+                animate: !$.jqplot.use_excanvas,
+                seriesDefaults: {
+                    renderer: $.jqplot.BarRenderer,
+                    pointLabels: { show: true }
+                },
+                axes: {
+                    xaxis: {
+                        renderer: $.jqplot.CategoryAxisRenderer,
+                        ticks: ticks
+                    }
+                },
+                highlighter: { show: false },
+                title : 'Average Review Score'
+            });
+
+            $('#chartdiv').bind('jqplotDataClick',
+                function (ev, seriesIndex, pointIndex, data) {
+                    $('#info1').html('series: ' + seriesIndex + ', point: ' + pointIndex + ', data: ' + data);
+                }
+            );
+        });
+    </script>
+}
