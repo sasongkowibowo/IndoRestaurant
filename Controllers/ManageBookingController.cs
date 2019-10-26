@@ -23,8 +23,7 @@ namespace IndoRestaurant.Controllers
             string userId = User.Identity.GetUserId();
             int branchId = db.Employees.Where(i => i.LoginId.Equals(userId)).Select(i => i.BranchId).SingleOrDefault();
             var bookingRequests = db.Database.SqlQuery<BookingRequest>("SELECT * FROM dbo.BookingRequests WHERE" +
-                " dbo.BookingRequests.BranchId =" + branchId + " AND (dbo.BookingRequests.BookingStatus IS null OR" +
-                " dbo.BookingRequests.BookingStatus = 2)");
+                " dbo.BookingRequests.BranchId =" + branchId + " AND (dbo.BookingRequests.BookingStatus IS null");
 
             return View(bookingRequests.OrderBy(d => d.Date).ToList());
         }
@@ -42,6 +41,7 @@ namespace IndoRestaurant.Controllers
                 return HttpNotFound();
             }
 
+            //Find available table
             string query = "SELECT * FROM dbo.BranchTables WHERE " +
                 "dbo.BranchTables.Id NOT IN (SELECT dbo.BookingRequests.BranchTableId FROM dbo.BookingRequests " +
                 "WHERE " +
@@ -96,8 +96,6 @@ namespace IndoRestaurant.Controllers
         {
             string userId = User.Identity.GetUserId();
             int branchId = db.Employees.Where(i => i.LoginId.Equals(userId)).Select(i => i.BranchId).SingleOrDefault();
-            //var bookingRequests = db.Database.SqlQuery<BookingRequest>("SELECT * FROM dbo.BookingRequests WHERE" +
-            //    " dbo.BookingRequests.BranchId =" + branchId + " AND dbo.BookingRequests.BookingStatus = 1");
 
             var scheduledBookings = db.Database.SqlQuery<ScheduledBookingViewModels>("SELECT a.Id, a.Date, a.Time, a.TransactionDate," +
                 " a.Note, a.Persons, a.Email, a.FullName, a.Telephone, a.BranchId, a.RealTimeStart, a.RealTimeEnd, " +
@@ -108,7 +106,7 @@ namespace IndoRestaurant.Controllers
         }
 
         // GET: CancelledBookings
-        public ActionResult CancelledBookings()
+        public ActionResult CancelledBookings() //list of cancelled booking
         {
             string userId = User.Identity.GetUserId();
             int branchId = db.Employees.Where(i => i.LoginId.Equals(userId)).Select(i => i.BranchId).SingleOrDefault();
@@ -119,7 +117,7 @@ namespace IndoRestaurant.Controllers
         }
 
         // GET: FinishedBookings
-        public ActionResult FinishedBookings()
+        public ActionResult FinishedBookings() //list of finished / succeeded booking
         {
             string userId = User.Identity.GetUserId();
             int branchId = db.Employees.Where(i => i.LoginId.Equals(userId)).Select(i => i.BranchId).SingleOrDefault();
@@ -139,6 +137,7 @@ namespace IndoRestaurant.Controllers
             BookingRequest bookingRequest = db.BookingRequests.Find(Id);
             if (ModelState.IsValid)
             {
+                //generate uniq id for review url
                 string uniq = Guid.NewGuid().ToString("N");
 
                 bookingRequest.BookingStatus = flag;
@@ -149,7 +148,7 @@ namespace IndoRestaurant.Controllers
                 string contents = "";
                 var branch = db.Branches.Find(bookingRequest.BranchId);
 
-                if (flag == 4)
+                if (flag == 4) //booking succeded, customer requested to fill review
                 {
                     subject = "Thankyou for your coming";
                     contents = "Branch: " + branch.Name + " (" + branch.Address + ", tel: " + branch.Telephone + ")<br />" +
@@ -158,7 +157,7 @@ namespace IndoRestaurant.Controllers
                         "We await your next arrival. <br />" +
                         "To improve our service, please fill out the following survey: https://localhost:44337/Reviews/Create?reviewCode=" + bookingRequest.ReviewCode;
                 }
-                else if (flag == 3)
+                else if (flag == 3) //booking canceled
                 {
                     subject = "Your booking request has been cancelled";
                     contents = "Branch: " + branch.Name + " (" + branch.Address + ", tel: " + branch.Telephone + ")<br />" +

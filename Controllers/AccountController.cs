@@ -366,6 +366,11 @@ namespace IndoRestaurant.Controllers
                 return RedirectToAction("Index", "Manage");
             }
 
+            if (model.SecretCode!="Secret Code")
+            {
+                return RedirectToAction("Login");
+            }
+
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider

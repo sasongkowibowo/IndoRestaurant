@@ -234,11 +234,12 @@
                 adaptiveHeight: false
             });
 
-
+            //https://stackoverflow.com/questions/17896176/custom-date-format-for-bootstrap-datepicker
             var date_input = $('input[name="Date"]'); //our date input has the name "date"
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             var options = {
                 format: 'yyyy/mm/dd',
+                startDate: '+1d',
                 container: container,
                 todayHighlight: true,
                 autoclose: true,

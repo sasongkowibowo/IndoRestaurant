@@ -12,6 +12,9 @@ namespace IndoRestaurant.Models
         [Required]
         [Display(Name = "UserRoles")]
         public string UserRoles { get; set; }
+
+        [Required]
+        public string SecretCode { get; set; }
     }
 
     public class ExternalLoginListViewModel

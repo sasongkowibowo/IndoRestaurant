@@ -23,8 +23,8 @@ namespace IndoRestaurant.Models
 
         public int Id { get; set; }
 
-        [Required(ErrorMessage ="Please enter your full name")]
-        [Display(Name ="Full Name")]
+        [Required(ErrorMessage = "Please enter your full name")]
+        [Display(Name = "Full Name")]
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Please enter booking Date")]
@@ -54,9 +54,10 @@ namespace IndoRestaurant.Models
         public Nullable<int> RealTimeEnd { get; set; }
 
         [Required(ErrorMessage = "Please enter Branch")]
+        [Display(Name = "Branch")]
         public int BranchId { get; set; }
         public Nullable<int> BranchTableId { get; set; }
-    
+
         public virtual Branch Branch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }

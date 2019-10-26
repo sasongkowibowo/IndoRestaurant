@@ -26,7 +26,7 @@ namespace IndoRestaurant.Models
         public string Telephone { get; set; }
         public string LoginId { get; set; }
         public int BranchId { get; set; }
-    
+
         public virtual Branch Branch { get; set; }
     }
 }

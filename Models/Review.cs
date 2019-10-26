@@ -36,7 +36,7 @@ namespace IndoRestaurant.Models
         public System.DateTime ReviewDate { get; set; }
         public int BranchId { get; set; }
         public int BookingRequestId { get; set; }
-    
+
         public virtual Branch Branch { get; set; }
         public virtual BookingRequest BookingRequest { get; set; }
     }

@@ -23,6 +23,7 @@ namespace IndoRestaurant.Controllers
             int branchId = db.Employees.Where(i => i.LoginId.Equals(userId)).Select(i => i.BranchId).SingleOrDefault();
             var reviews = db.Reviews.Where(b => b.BranchId == branchId);
 
+            //data for generating graph
             var sumMenu = db.Database.SqlQuery<int>("SELECT sum(dbo.Reviews.Menu) FROM dbo.Reviews WHERE " +
                "dbo.Reviews.BranchId =" + branchId).SingleOrDefault();
 

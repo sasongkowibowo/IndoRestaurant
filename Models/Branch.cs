@@ -23,7 +23,7 @@ namespace IndoRestaurant.Models
             this.BookingRequests = new HashSet<BookingRequest>();
             this.Reviews = new HashSet<Review>();
         }
-    
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter branch name")]
@@ -40,7 +40,7 @@ namespace IndoRestaurant.Models
 
         [Required(ErrorMessage = "Please enter longitude coordinate")]
         public string Lng { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
